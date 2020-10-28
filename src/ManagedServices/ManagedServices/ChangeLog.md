@@ -18,6 +18,8 @@
         - Additional information about change #1
 -->
 ## Upcoming Release
+
+## Version 0.1.0
 * [Breaking Change]Updated parametersnaming conventions and associated examples
 
 ## Version 1.1.1

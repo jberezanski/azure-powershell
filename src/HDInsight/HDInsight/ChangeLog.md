@@ -18,6 +18,8 @@
         - Additional information about change #1
 -->
 ## Upcoming Release
+
+## Version 0.1.0
  * For New-AzHDInsightCluster cmdlet:
      - Replaced parameter `DefaultStorageAccountName` with `StorageAccountResourceId`
      - Replaced parameter `DefaultStorageAccountKey` with `StorageAccountKey`

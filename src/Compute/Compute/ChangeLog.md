@@ -20,6 +20,8 @@
 
 -->
 ## Upcoming Release
+
+## Version 0.1.0
 * Added `-VmssId` parameter to `New-AzVm`
 * Added `PlatformFaultDomainCount` parameter to the `New-AzVmss` cmdlet.
 * New cmdlet `Get-AzDiskEncryptionSetAssociatedResource`

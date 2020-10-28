@@ -18,6 +18,8 @@
         - Additional information about change #1
 -->
 ## Upcoming Release
+
+## Version 0.1.0
 * Removed `Get-AzProfile` and `Select-AzProfile`
 
 ## Version 1.9.5

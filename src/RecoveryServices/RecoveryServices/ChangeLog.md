@@ -18,6 +18,8 @@
         - Additional information about change #1
 -->
 ## Upcoming Release
+
+## Version 0.1.0
 * Fixing Workload Restore for contributor permissions.
 * Added new parameter sets and validations for Restore-AzRecoveryServicesBackupItem cmdlet.
 
