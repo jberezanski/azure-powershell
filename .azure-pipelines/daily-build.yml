@@ -16,25 +16,25 @@ stages:
     pool:
       vmImage: 'windows-2019'
     steps:
-    - task: PowerShell@2
-      displayName: Initialization
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Avoid issue of filename too long
-          git config --global core.longpaths true
+    # - task: PowerShell@2
+    #   displayName: Initialization
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |
+    #       # Avoid issue of filename too long
+    #       git config --global core.longpaths true
           
-          # Wipe any changes from a previous branch
-          git clean -xdf
+    #       # Wipe any changes from a previous branch
+    #       git clean -xdf
           
-          # Ensure the installation policy of PSGallery is Trusted
-          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+    #       # Ensure the installation policy of PSGallery is Trusted
+    #       Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
-          # Sync with master
-          git config user.email "bez@microsoft.com"
-          git config user.name "azuresdkci"
-          git remote set-url origin https://$(Token)@github.com/Azure/azure-powershell.git
-          git checkout -b internal/dailyBuild
+    #       # Sync with master
+    #       git config user.email "bez@microsoft.com"
+    #       git config user.name "azuresdkci"
+    #       git remote set-url origin https://$(Token)@github.com/Azure/azure-powershell.git
+    #       git checkout -b internal/dailyBuild
 
     # - task: DotNetCoreCLI@2
     #   displayName: 'Build Products'
