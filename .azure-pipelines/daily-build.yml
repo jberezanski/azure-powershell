@@ -66,6 +66,7 @@ stages:
       inputs:
         targetType: inline
         script: 'Install-Module platyPS -Force -Confirm:$false -Scope CurrentUser'
+        pwsh: true
 
     - task: PowerShell@2
       displayName: 'Install PowerShellGet [v2.1.3 has a Publish-Module bug]'
@@ -90,6 +91,8 @@ stages:
 
           # Copy ShortCut to be Signed
           Copy-Item .\tools\Az\Az.psm1 -Destination $Env:RepoArtifacts/$Env:Configuration
+        pwsh: true
+
     - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
       displayName: 'Dll Signing [Authenticode + Strong Name]'
       inputs:
@@ -225,6 +228,7 @@ stages:
 
           # Copy files back after signing
           Copy-Item $Env:RepoArtifacts/$Env:Configuration/Az.psm1 -Destination ./tools/Az
+        pwsh: true
 
     - task: DotNetCoreCLI@2
       displayName: Publish
