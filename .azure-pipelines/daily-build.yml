@@ -36,30 +36,30 @@ stages:
           git remote set-url origin https://$(Token)@github.com/Azure/azure-powershell.git
           git checkout -b internal/dailyBuild
 
-    - task: DotNetCoreCLI@2
-      displayName: 'Build Products'
-      inputs:
-        command: custom
-        custom: msbuild
-        arguments: 'build.proj /t:Build /p:Configuration=Release'
+    # - task: DotNetCoreCLI@2
+    #   displayName: 'Build Products'
+    #   inputs:
+    #     command: custom
+    #     custom: msbuild
+    #     arguments: 'build.proj /t:Build /p:Configuration=Release'
 
-    - task: PowerShell@2
-      displayName: VersionBump
-      inputs:
-        targetType: filePath
-        filePath: ./tools/RunVersionController.ps1
-        arguments: '-Release "$(MonthName) $(Year)"'
-        pwsh: true
+    # - task: PowerShell@2
+    #   displayName: VersionBump
+    #   inputs:
+    #     targetType: filePath
+    #     filePath: ./tools/RunVersionController.ps1
+    #     arguments: '-Release "$(MonthName) $(Year)"'
+    #     pwsh: true
 
-    - task: PowerShell@2
-      displayName: Commit Change 
-      inputs:
-        targetType: 'inline'
-        script: |
-          git add .
-          git commit -m "bump version"
-          git status
-          git push origin internal/dailyBuild --force
+    # - task: PowerShell@2
+    #   displayName: Commit Change 
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |
+    #       git add .
+    #       git commit -m "bump version"
+    #       git status
+    #       git push origin internal/dailyBuild --force
 
     - task: PowerShell@2
       displayName: 'Install platyPS'
@@ -82,7 +82,7 @@ stages:
         arguments: 'build.proj /t:Build;GenerateHelp;StaticAnalysis /p:Configuration=Release'
 
     - task: PowerShell@2
-      displayName: Signing
+      displayName: 'Before Signing'
       inputs:
         targetType: 'inline'
         script: |
@@ -144,77 +144,78 @@ stages:
               "ToolVersion": "1.0"
             }
           ]
-    - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
-      displayName: 'Scripts Signing [Authenticode]'
-      inputs:
-        ConnectedServiceName: 'azps-sign'
-        FolderPath: artifacts
-        Pattern: |
-          Release/**/*.ps1
-          Release/**/*.psm1
-          Release/**/*.ps1xml
-          Release/**/*.js
-        UseMinimatch: true
-        signConfigType: inlineSignParams
-        inlineOperation: |
-          [
-            {
-              "KeyCode": "CP-230012",
-              "OperationCode": "SigntoolSign",
-              "Parameters": {
-                "OpusName": "Microsoft",
-                "OpusInfo": "http://www.microsoft.com",
-                "FileDigest": "/fd \"SHA256\"",
-                "PageHash": "/NPH",
-                "TimeStamp": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
-              },
-              "ToolName": "sign",
-              "ToolVersion": "1.0"
-            },
-            {
-              "KeyCode": "CP-230012",
-              "OperationCode": "SigntoolVerify",
-              "Parameters": {},
-              "ToolName": "sign",
-              "ToolVersion": "1.0"
-            }
-          ]
+
+    # - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
+    #   displayName: 'Scripts Signing [Authenticode]'
+    #   inputs:
+    #     ConnectedServiceName: 'azps-sign'
+    #     FolderPath: artifacts
+    #     Pattern: |
+    #       Release/**/*.ps1
+    #       Release/**/*.psm1
+    #       Release/**/*.ps1xml
+    #       Release/**/*.js
+    #     UseMinimatch: true
+    #     signConfigType: inlineSignParams
+    #     inlineOperation: |
+    #       [
+    #         {
+    #           "KeyCode": "CP-230012",
+    #           "OperationCode": "SigntoolSign",
+    #           "Parameters": {
+    #             "OpusName": "Microsoft",
+    #             "OpusInfo": "http://www.microsoft.com",
+    #             "FileDigest": "/fd \"SHA256\"",
+    #             "PageHash": "/NPH",
+    #             "TimeStamp": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+    #           },
+    #           "ToolName": "sign",
+    #           "ToolVersion": "1.0"
+    #         },
+    #         {
+    #           "KeyCode": "CP-230012",
+    #           "OperationCode": "SigntoolVerify",
+    #           "Parameters": {},
+    #           "ToolName": "sign",
+    #           "ToolVersion": "1.0"
+    #         }
+    #       ]
     
-    - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
-      displayName: '3rd Party Signing [Authenticode]'
-      inputs:
-        ConnectedServiceName: 'azps-sign'
-        FolderPath: artifacts
-        Pattern: |
-          Release/**/*AutoMapper*.dll
-          Release/**/*YamlDotNet*.dll
-          Release/**/*Newtonsoft.Json*.dll
-          Release/**/*BouncyCastle.Crypto*.dll
-        UseMinimatch: true
-        signConfigType: inlineSignParams
-        inlineOperation: |
-          [
-            {
-              "KeyCode": "CP-231522",
-              "OperationCode": "SigntoolSign",
-              "Parameters": {
-                "OpusName": "Microsoft",
-                "OpusInfo": "http://www.microsoft.com",
-                "FileDigest": "/fd \"SHA256\"",
-                "PageHash": "/NPH",
-                "TimeStamp": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
-              },
-              "ToolName": "sign",
-              "ToolVersion": "1.0"
-            },
-            {
-              "KeyCode": "CP-231522",
-              "OperationCode": "SigntoolVerify",
-              "Parameters": {},
-              "ToolName": "sign",
-              "ToolVersion": "1.0"
-            }
-          ]
+    # - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
+    #   displayName: '3rd Party Signing [Authenticode]'
+    #   inputs:
+    #     ConnectedServiceName: 'azps-sign'
+    #     FolderPath: artifacts
+    #     Pattern: |
+    #       Release/**/*AutoMapper*.dll
+    #       Release/**/*YamlDotNet*.dll
+    #       Release/**/*Newtonsoft.Json*.dll
+    #       Release/**/*BouncyCastle.Crypto*.dll
+    #     UseMinimatch: true
+    #     signConfigType: inlineSignParams
+    #     inlineOperation: |
+    #       [
+    #         {
+    #           "KeyCode": "CP-231522",
+    #           "OperationCode": "SigntoolSign",
+    #           "Parameters": {
+    #             "OpusName": "Microsoft",
+    #             "OpusInfo": "http://www.microsoft.com",
+    #             "FileDigest": "/fd \"SHA256\"",
+    #             "PageHash": "/NPH",
+    #             "TimeStamp": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+    #           },
+    #           "ToolName": "sign",
+    #           "ToolVersion": "1.0"
+    #         },
+    #         {
+    #           "KeyCode": "CP-231522",
+    #           "OperationCode": "SigntoolVerify",
+    #           "Parameters": {},
+    #           "ToolName": "sign",
+    #           "ToolVersion": "1.0"
+    #         }
+    #       ]
     - task: PowerShell@2
       displayName: After Signing
       inputs:
