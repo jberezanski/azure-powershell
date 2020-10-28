@@ -1,3 +1,99 @@
+## 13.0.0 - August 2020
+#### Az.Accounts
+* Fixed DateTime parse issue in common libraries [#13045]
+
+#### Az.Aks
+* Added client side parameter validation logic for 'New-AzAksCluster', 'Set-AzAksCluster' and 'New-AzAksNodePool'. [#12372]
+* Added support for add-ons in 'New-AzAksCluster'. [#11239]
+* Added cmdlets 'Enable-AzAksAddOn' and 'Disable-AzAksAddOn' for add-ons. [#11239]
+* Added parameter 'GenerateSshKey' for 'New-AzAksCluster'. [#12371]
+* Updated api version to 2020-06-01.
+
+#### Az.Billing
+* Updated assembly version of consumption cmdlets
+
+#### Az.Cdn
+* Fixed ChinaCDN related pricing SKU display
+
+#### Az.CognitiveServices
+* Added 'New-AzCognitiveServicesAccountApiProperty' cmdlet.
+* Supported 'ApiProperty' parameter for 'New-AzCognitiveServicesAccount' and 'Set-AzCognitiveServicesAccount'
+
+#### Az.Compute
+* Fixed issue in 'Update-ASRRecoveryPlan' by populating FailoverTypes
+* Added the '-Top' and '-OrderBy' optional parameters to the 'Get-AzVmImage' cmdlet. 
+
+#### Az.ContainerRegistry
+* Update references in .psd1 to use relative path
+
+#### Az.DataFactory
+* Fixed typo in output messages
+
+#### Az.DesktopVirtualization
+* Require Location property for creating top level arm objects.
+        * Made `ApplicationGroupType` required for `New-AzWvdApplicationGroup`.
+        * Made `HostPoolArmPath` required for `New-AzWvdApplicationGroup`.
+        * Added `PreferredAppGroupType` for `New-AzWvdHostPool`.
+
+#### Az.Functions
+* Removed the ability to create v2 Functions in regions that do not support it.
+* Deprecated PowerShell 6.2. Added a warning for when a user creates a PowerShell 6.2 function app that advises them to create a PowerShell 7.0 function app instead.
+
+#### Az.HDInsight
+* Added warning message for planning to deprecate the parameters 'PublicNetworkAccessType' and 'OutboundPublicNetworkAccessType'
+* Added warning message for planning to replace the parameter 'DefaultStorageAccountName' with 'StorageAccountResourceId'
+* Added warning message for planning to replace the parameter 'DefaultStorageAccountKey' with 'StorageAccountKey'
+* Added warning message for planning to replace the parameter 'DefaultStorageAccountType' with 'StorageAccountType'
+* Added warning message for planning to replace the parameter 'DefaultStorageContainer' with 'StorageContainer'
+* Added warning message for planning to replace the parameter 'DefaultStorageRootPath' with 'StorageRootPath'
+
+#### Az.KeyVault
+* Provided the detailed date of removing property SecretValueText
+
+#### Az.ManagedServices
+* Updated breaking change warnings on cmdlets of managed services assignment and definition
+
+#### Az.Network
+* Added Office365 Policy to VPNSite Resource
+    - 'New-AzO365PolicyProperty'
+
+#### Az.RecoveryServices
+* Added container name validation for workload backup.
+
+#### Az.Resources
+* Added missing check for Set-AzRoleAssignment
+* Added breaking change attribute to 'SubscriptionId' parameter of 'Get-AzResourceGroupDeploymentOperation'
+* Updated ARM template What-If cmdlets to show 'Ignore' resource changes last
+* Fixed secure and array parameter serialization issues for deployment cmdlets [#12773]
+
+#### Az.Sql
+* Added BackupStorageRedundancy to the following: 
+    - 'Restore-AzureRmSqlDatabase'
+    - 'New-AzSqlDatabaseCopy'
+    - 'New-AzSqlDatabaseSecondary'
+* Removed case sensitivity for BackupStorageRedundancy parameter for all SQL DB references 
+* Updated BackupStorageRedundancy warning message names
+
+#### Az.Storage
+* Supported enable/disable/get share soft delete properties on file Service of a Storage account
+    - 'Update-AzStorageFileServiceProperty'
+    - 'Get-AzStorageFileServiceProperty'
+* Supported list file shares include the deleted ones of a Storage account, and Get single file share usage
+    - 'Get-AzRmStorageShare'
+* Supported restore a deleted file share
+    - 'Restore-AzRmStorageShare'
+* Changed the cmdlets for modify blob service properties, won't get the original properties from server, but only set the modified properties to server.
+    - 'Enable-AzStorageBlobDeleteRetentionPolicy'
+    - 'Disable-AzStorageBlobDeleteRetentionPolicy'  
+    - 'Enable-AzStorageBlobRestorePolicy'
+    - 'Disable-AzStorageBlobRestorePolicy'
+    - 'Update-AzStorageBlobServiceProperty'
+* Fixed help issue for New-AzStorageAccount parameter -Kind default value [#12189]
+* Fixed issue by add example to show how to set correct ContentType in blob upload [#12989]
+
+#### Az.Websites
+* Added support to perform operations for Slots not in the same resource group as the App Service Plan
+
 ## 12.0.0 - August 2020
 #### Az.Accounts
 * Fixed DateTime parse issue in common libraries [#13045]
