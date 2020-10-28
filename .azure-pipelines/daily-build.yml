@@ -13,6 +13,8 @@ stages:
 - stage: VersionBump
   jobs:
   - job: VersionBump
+    pool:
+      vmImage: 'windows-2019'
     steps:
     - task: PowerShell@2
       displayName: Initialization
