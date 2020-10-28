@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '11.0.0'
+ModuleVersion = '12.0.0'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Core', 'Desktop'
@@ -168,7 +168,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '11.0.0 - August 2020
+        ReleaseNotes = '12.0.0 - August 2020
 Az.Accounts
 * Fixed DateTime parse issue in common libraries [#13045]
 
