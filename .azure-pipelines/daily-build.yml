@@ -10,7 +10,7 @@ schedules:
 pr: none
 
 stages:
-- stage: Bump Version
+- stage: VersionBump
   jobs:
   - job: VersionBump
     steps:
